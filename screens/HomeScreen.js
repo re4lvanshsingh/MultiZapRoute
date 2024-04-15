@@ -119,6 +119,16 @@ const HomeScreen = () => {
         return rgbColor;
     }
 
+    function convertStringNumbersToNumbers(obj) {
+        for (const key in obj) {
+            if (typeof obj[key] === 'string' && !isNaN(Number(obj[key]))) {
+                obj[key] = Number(obj[key]);
+            } else if (typeof obj[key] === 'object') {
+                convertStringNumbersToNumbers(obj[key]); // Recursively call for nested objects
+            }
+        }
+    }
+
     const sendDataToBackend = async () => {
         try {
             // Combine all input data into a single object
@@ -133,7 +143,7 @@ const HomeScreen = () => {
                 batterySwappingCost: 30,
                 batterySwappingTime: 0.2,
                 mxVehicles: vehicle.length,
-                mxCustomers: textInputs.length,
+                mxCustomers: textInputs.length-1,
                 dischargingConst: 10,
                 temperature: 300,
                 scalingFactor: 0.03,
@@ -142,13 +152,15 @@ const HomeScreen = () => {
                 mediumTimeChargers: 2,
                 slowTimeChargers: 4,
                 costPerUnitChargeOfFast: 3, // in rs/wh
-                ostPerUnitChargeOfMedium: 1.4,
+                costPerUnitChargeOfMedium: 1.4,
                 costPerUnitChargeOfSlow: 0.9,
                 mxBatteryChargingStations: batteryChargingStation.length,
                 mxBatterySwappingStations: batterySwappingStation.length
             };
             // console.log(requestData);
             
+            convertStringNumbersToNumbers(requestData);
+
             // Send the combined data to the backend
             const response = await fetch('http://10.35.15.0:3000',{
                 method: 'POST',
@@ -160,82 +172,83 @@ const HomeScreen = () => {
     
             // Handle response if needed
             let responseData = await response.json();
+            console.log(responseData);
 
             //Dispatch to redux store for future use in Map.js
-            responseData={
-                "Data": [
-                    {
-                        "VehicleNumber": 1,
-                        "TotCost": 0.0,
-                        "TotTime": 0.0195771,
-                        "Nodes": [
-                            {
-                                "Latitude": 25.5408,
-                                "Longitude": 84.8507,
-                                "text": "Current Location",
-                                "ChStation": false,
-                                "BatterySwapStation": false
-                            },
-                            {
-                                "Latitude": 25.5388,
-                                "Longitude": 84.859,
-                                "text": "Panache Inn, near IIT Main gate, Bihta, Bihar, India",
-                                "ChStation": false,
-                                "BatterySwapStation": false
-                            },
-                            {
-                                "Latitude": 25.5408,
-                                "Longitude": 84.8507,
-                                "text": "Current Location",
-                                "ChStation": false,
-                                "BatterySwapStation": false
-                            }
-                        ]
-                    },
-                    {
-                        "VehicleNumber": 2,
-                        "TotCost": 2857.7,
-                        "TotTime": 12.1023,
-                        "Nodes": [
-                            {
-                                "Latitude": 25.5408,
-                                "Longitude": 84.8507,
-                                "text": "Current Location",
-                                "ChStation": false,
-                                "BatterySwapStation": false
-                            },
-                            {
-                                "Latitude": 25.5547,
-                                "Longitude": 84.8575,
-                                "text": "IIT Patna Gate No. 2, IIT Main Road, Dayalpur Daulatpur, Bihar, India",
-                                "ChStation": false,
-                                "BatterySwapStation": false
-                            },
-                            {
-                                "Latitude": 25.6186,
-                                "Longitude": 85.08,
-                                "text": "Panache Patna",
-                                "ChStation": true,
-                                "BatterySwapStation": false
-                            },
-                            {
-                                "Latitude": 25.6145,
-                                "Longitude": 85.1437,
-                                "text": "Lemon Tree Premier, Patna, Exhibition Road, near Gandhi Maidan Road, South Gandhi Maidan, Raja Ji Salai, Indira Nagar, Patna, Bihar, India",
-                                "ChStation": false,
-                                "BatterySwapStation": false
-                            },
-                            {
-                                "Latitude": 25.5408,
-                                "Longitude": 84.8507,
-                                "text": "Current Location",
-                                "ChStation": false,
-                                "BatterySwapStation": false
-                            }
-                        ]
-                    }
-                ]
-            };
+            // responseData={
+            //     "Data": [
+            //         {
+            //             "VehicleNumber": 1,
+            //             "TotCost": 0.0,
+            //             "TotTime": 0.0195771,
+            //             "Nodes": [
+            //                 {
+            //                     "Latitude": 25.5408,
+            //                     "Longitude": 84.8507,
+            //                     "text": "Current Location",
+            //                     "ChStation": false,
+            //                     "BatterySwapStation": false
+            //                 },
+            //                 {
+            //                     "Latitude": 25.5388,
+            //                     "Longitude": 84.859,
+            //                     "text": "Panache Inn, near IIT Main gate, Bihta, Bihar, India",
+            //                     "ChStation": false,
+            //                     "BatterySwapStation": false
+            //                 },
+            //                 {
+            //                     "Latitude": 25.5408,
+            //                     "Longitude": 84.8507,
+            //                     "text": "Current Location",
+            //                     "ChStation": false,
+            //                     "BatterySwapStation": false
+            //                 }
+            //             ]
+            //         },
+            //         {
+            //             "VehicleNumber": 2,
+            //             "TotCost": 2857.7,
+            //             "TotTime": 12.1023,
+            //             "Nodes": [
+            //                 {
+            //                     "Latitude": 25.5408,
+            //                     "Longitude": 84.8507,
+            //                     "text": "Current Location",
+            //                     "ChStation": false,
+            //                     "BatterySwapStation": false
+            //                 },
+            //                 {
+            //                     "Latitude": 25.5547,
+            //                     "Longitude": 84.8575,
+            //                     "text": "IIT Patna Gate No. 2, IIT Main Road, Dayalpur Daulatpur, Bihar, India",
+            //                     "ChStation": false,
+            //                     "BatterySwapStation": false
+            //                 },
+            //                 {
+            //                     "Latitude": 25.6186,
+            //                     "Longitude": 85.08,
+            //                     "text": "Panache Patna",
+            //                     "ChStation": true,
+            //                     "BatterySwapStation": false
+            //                 },
+            //                 {
+            //                     "Latitude": 25.6145,
+            //                     "Longitude": 85.1437,
+            //                     "text": "Lemon Tree Premier, Patna, Exhibition Road, near Gandhi Maidan Road, South Gandhi Maidan, Raja Ji Salai, Indira Nagar, Patna, Bihar, India",
+            //                     "ChStation": false,
+            //                     "BatterySwapStation": false
+            //                 },
+            //                 {
+            //                     "Latitude": 25.5408,
+            //                     "Longitude": 84.8507,
+            //                     "text": "Current Location",
+            //                     "ChStation": false,
+            //                     "BatterySwapStation": false
+            //                 }
+            //             ]
+            //         }
+            //     ]
+            // };
 
             let finalData=[];
             responseData["Data"].map((item)=>{
