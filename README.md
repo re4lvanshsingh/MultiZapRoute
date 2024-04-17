@@ -9,6 +9,6 @@ Solving the School Bus Problem Graphically
 ![7](https://github.com/re4lvanshsingh/MultiZapRoute/assets/95162817/777dc2c2-6e22-4281-89fe-b091c99e8303)
 ![8](https://github.com/re4lvanshsingh/MultiZapRoute/assets/95162817/74d733f1-9624-4282-a3f2-2a4e4bb0b96c)
 ![9](https://github.com/re4lvanshsingh/MultiZapRoute/assets/95162817/44649455-75f2-4b5a-92c9-dbf053f37916)
-![10](https://github.com/re4lvanshsingh/MultiZapRoute/assets/95162817/3d06c7ce-42c7-45fc-8d0a-9cc54c5a6339)
+![10](https://github.com/re4lvanshsingh/MultiZapRoute/assets/95162817/73fdd4ea-49d6-4b43-af2d-93879dca4b99)
 ![11](https://github.com/re4lvanshsingh/MultiZapRoute/assets/95162817/2b2e58d5-db49-465b-b689-47ac359a0ff6)
 ![12](https://github.com/re4lvanshsingh/MultiZapRoute/assets/95162817/e3440a2f-49bd-4c04-8db0-e0124449fa71)
